@@ -1,8 +1,13 @@
 {
   "compilerOptions": {
-    "outDir": "dist",
+    "moduleResolution": "node",
+    "skipLibCheck": true,
     "esModuleInterop": true,
-    "module": "es6"
+    "outDir": "dist",
+    "module": "es6",
+    "strict": true,
+    "rootDir": "src",
+    "noEmit": true
   },
   "ts-node": {
     "esm": true
