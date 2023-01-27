@@ -40,10 +40,23 @@ async function createPlatform(req:Request, res:Response) {
     }
 }
 
+async function createGame(req:Request, res:Response) {
+    const {name, email, platform} = req.body;
+
+    try{
+        await userService.createGame(name, email, platform);
+        res.sendStatus(200);
+    }catch(err){
+        console.log(err)
+        res.status(500).send(err);
+    }
+}
+
 const userController = {
     getAllUsers,
     createUser,
     createPlatform,
+    createGame
 }
 
 export default userController;

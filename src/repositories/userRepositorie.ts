@@ -25,6 +25,15 @@ async function createPlatform(name:string, id:number) {
     })
 }
 
+async function createGame(name:string, id:number) {
+    await prisma.game.create({
+        data:{
+            name:name,
+            platformId:id
+        }
+    })
+}
+
 async function getUserEmail(email:string) {
     const data = await prisma.user.findFirst({
         where:{
@@ -35,11 +44,23 @@ async function getUserEmail(email:string) {
     return data;
 }
 
+async function getPlatform(platform:string) {
+    const data = await prisma.platform.findFirst({
+        where:{
+            name:platform,
+        }
+    })
+    
+    return data;
+}
+
 const userRepositorie = {
     getUsers,
     createUser,
     getUserEmail,
-    createPlatform
+    createPlatform,
+    getPlatform,
+    createGame
 }
 
 export default userRepositorie;
