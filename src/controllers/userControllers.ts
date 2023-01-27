@@ -10,6 +10,40 @@ async function getAllUsers(req:Request, res:Response) {
     }
 }
 
-export {
-    getAllUsers
+export type User = {
+    name:string,
+    age:number,
+    email:string
 }
+
+async function createUser(req:Request, res:Response) {
+    const user : User = req.body ;
+
+    try{
+        await userService.createUser(user);
+        res.sendStatus(200);
+    }catch(err){
+        console.log(err)
+        res.status(500).send(err);
+    }
+}
+
+async function createPlatform(req:Request, res:Response) {
+    const {name, email} = req.body ;
+
+    try{
+        await userService.createPlatform(name, email);
+        res.sendStatus(200);
+    }catch(err){
+        console.log(err)
+        res.status(500).send(err);
+    }
+}
+
+const userController = {
+    getAllUsers,
+    createUser,
+    createPlatform,
+}
+
+export default userController;

@@ -1,12 +1,45 @@
 import { prisma } from "../config/database.js";
+import { User } from "../controllers/userControllers.js";
 
 async function getUsers() {
     const data = await prisma.user.findMany();
     return data;
 }
 
+async function createUser(user:User) {
+    await prisma.user.create({
+        data:{
+            name:user.name,
+            age:user.age,
+            email:user.email
+        }
+    })
+}
+
+async function createPlatform(name:string, id:number) {
+    await prisma.platform.create({
+        data:{
+            name:name,
+            userId:id
+        }
+    })
+}
+
+async function getUserEmail(email:string) {
+    const data = await prisma.user.findFirst({
+        where:{
+            email,
+        }
+    })
+    
+    return data;
+}
+
 const userRepositorie = {
-    getUsers
+    getUsers,
+    createUser,
+    getUserEmail,
+    createPlatform
 }
 
 export default userRepositorie;
