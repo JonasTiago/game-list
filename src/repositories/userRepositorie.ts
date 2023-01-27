@@ -1,8 +1,12 @@
 import { prisma } from "../config/database.js";
 import { User } from "../controllers/userControllers.js";
 
-async function getUsers() {
-    const data = await prisma.user.findMany();
+async function getGames(id:number) {
+    const data = await prisma.game.findMany({
+        where:{
+            id,
+        }
+    });
     return data;
 }
 
@@ -55,7 +59,7 @@ async function getPlatform(platform:string) {
 }
 
 const userRepositorie = {
-    getUsers,
+    getGames,
     createUser,
     getUserEmail,
     createPlatform,

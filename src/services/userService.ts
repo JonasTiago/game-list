@@ -5,9 +5,13 @@ import notFoundError from "../errors/notFoundError.js";
 import userRepositorie from "../repositories/userRepositorie.js";
 import userSchema from "../schemas/userSchema.js";
 
-async function getUsers() {
-    const cars = await userRepositorie.getUsers();
-    return cars;
+async function getGames(email:string) {
+
+    const user = await userRepositorie.getUserEmail(email);
+    if (!user) throw notFoundError();
+
+    const games = await userRepositorie.getGames(user.id);
+    return games;
 }
 
 async function createPlatform(name: string, email: string) {
@@ -43,7 +47,7 @@ async function createGame(name: string, email: string, platform: string) {
 }
 
 const userService = {
-    getUsers,
+    getGames,
     createUser,
     createPlatform,
     createGame

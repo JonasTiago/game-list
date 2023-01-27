@@ -1,12 +1,14 @@
 import { Request, Response } from "express"
 import userService from "../services/userService.js"
 
-async function getAllUsers(req:Request, res:Response) {
+async function getAllGames(req:Request, res:Response) {
+    const email:string = req.body.email;
+
     try{
-       const cars = await userService.getUsers()
-       res.send(cars);
+       const games = await userService.getGames(email);
+       res.send(games);
     }catch(err){
-        res.sendStatus(500);
+        res.status(500).send(err);
     }
 }
 
@@ -53,10 +55,10 @@ async function createGame(req:Request, res:Response) {
 }
 
 const userController = {
-    getAllUsers,
     createUser,
     createPlatform,
-    createGame
+    createGame,
+    getAllGames
 }
 
 export default userController;
