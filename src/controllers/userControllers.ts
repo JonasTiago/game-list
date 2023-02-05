@@ -1,5 +1,5 @@
 import { Request, Response } from "express"
-import userService from "../services/userService.js"
+import userService from "../services/userService"
 
 async function getAllGames(req:Request, res:Response) {
     const email:string = req.body.email;
@@ -22,8 +22,8 @@ async function createUser(req:Request, res:Response) {
     const user : User = req.body ;
 
     try{
-        await userService.createUser(user);
-        res.sendStatus(200);
+        const userData = await userService.createUser(user);
+        res.status(200).send(userData);
     }catch(err){
         console.log(err)
         res.status(500).send(err);

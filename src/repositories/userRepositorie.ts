@@ -1,5 +1,5 @@
-import { prisma } from "../config/database.js";
-import { User } from "../controllers/userControllers.js";
+import { prisma } from "../config/database";
+import { User } from "../controllers/userControllers";
 
 async function getGames(id:number) {
     const data = await prisma.game.findMany({
@@ -8,17 +8,17 @@ async function getGames(id:number) {
         }
     });
     return data;
-}
+};
 
 async function createUser(user:User) {
-    await prisma.user.create({
+    return await prisma.user.create({
         data:{
             name:user.name,
             age:user.age,
             email:user.email
         }
     })
-}
+};
 
 async function createPlatform(name:string, id:number) {
     await prisma.platform.create({
@@ -27,7 +27,7 @@ async function createPlatform(name:string, id:number) {
             userId:id
         }
     })
-}
+};
 
 async function createGame(name:string, id:number) {
     await prisma.game.create({
@@ -36,7 +36,7 @@ async function createGame(name:string, id:number) {
             platformId:id
         }
     })
-}
+};
 
 async function getUserEmail(email:string) {
     const data = await prisma.user.findFirst({
@@ -46,7 +46,7 @@ async function getUserEmail(email:string) {
     })
     
     return data;
-}
+};
 
 async function getPlatform(platform:string) {
     const data = await prisma.platform.findFirst({
@@ -56,7 +56,7 @@ async function getPlatform(platform:string) {
     })
     
     return data;
-}
+};
 
 const userRepositorie = {
     getGames,
@@ -65,6 +65,6 @@ const userRepositorie = {
     createPlatform,
     getPlatform,
     createGame
-}
+};
 
 export default userRepositorie;

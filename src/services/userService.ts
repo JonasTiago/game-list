@@ -1,8 +1,8 @@
-import { User } from "../controllers/userControllers.js";
-import conflictError from "../errors/conflictError.js";
-import notFoundError from "../errors/notFoundError.js";
-import userRepositorie from "../repositories/userRepositorie.js";
-import userSchema from "../schemas/userSchema.js";
+import { User } from "../controllers/userControllers";
+import conflictError from "../errors/conflictError";
+import notFoundError from "../errors/notFoundError";
+import userRepositorie from "../repositories/userRepositorie";
+import userSchema from "../schemas/userSchema";
 
 async function getGames(email:string) {
     const user = await userRepositorie.getUserEmail(email);
@@ -26,7 +26,7 @@ async function createUser(user: User) {
     const emailInvalid = await userRepositorie.getUserEmail(user.email);
     if (emailInvalid) throw conflictError(`email ${user.email} already registered.`);
 
-    await userRepositorie.createUser(user)
+    return await userRepositorie.createUser(user)
 }
 
 async function createGame(name: string, email: string, platform: string) {
